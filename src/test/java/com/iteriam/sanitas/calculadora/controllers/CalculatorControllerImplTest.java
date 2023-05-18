@@ -1,6 +1,6 @@
 package com.iteriam.sanitas.calculadora.controllers;
 
-import com.iteriam.sanitas.calculadora.controllers.constants.ConstantsController;
+import com.iteriam.sanitas.calculadora.Constant;
 import com.iteriam.sanitas.calculadora.controllers.exception.model.NumParamsNullException;
 import com.iteriam.sanitas.calculadora.controllers.impl.CalculatorControllerImpl;
 import com.iteriam.sanitas.calculadora.controllers.responses.ResponseBase;
@@ -16,13 +16,8 @@ import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.mockito.junit.jupiter.MockitoSettings;
 import org.mockito.quality.Strictness;
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
-import org.springframework.boot.test.context.SpringBootTest;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
 import java.math.BigDecimal;
 import java.util.Objects;
@@ -31,15 +26,11 @@ import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 /**
  * CalculatorController test
  */
 @ExtendWith(MockitoExtension.class)
-@SpringBootTest
-@AutoConfigureMockMvc
 class CalculatorControllerImplTest {
     @InjectMocks
     private CalculatorControllerImpl operationsController;
@@ -48,8 +39,6 @@ class CalculatorControllerImplTest {
     @Mock
     private Logger log;
 
-    @Autowired
-    private MockMvc mockMvc;
 
     /**
      * Test getOperation
@@ -88,25 +77,9 @@ class CalculatorControllerImplTest {
         });
 
         assertEquals(NumParamsNullException.class, exception.getClass());
-        assertEquals(ConstantsController.ERROR_OPERATOR, exception.getMessage());
+        assertEquals(Constant.ERROR_NUM_NULL, exception.getMessage());
 
     }
 
-    @Test
-    public void testNullOperator() throws Exception {
-        MockHttpServletRequestBuilder request = get("/operations")
-                .param(ConstantsController.PARAM_NUM1, "10")
-                .param(ConstantsController.PARAM_NUM2, "5");
 
-        mockMvc.perform(request)
-                .andExpect(status().isBadRequest());  // esperamos un error 400 Bad Request cuando operator es null
-    }
-    @Test
-    public void testNullParamsNum() throws Exception {
-        MockHttpServletRequestBuilder request = get("/operations")
-                .param(ConstantsController.PARAM_OPERATOR, "ADD");
-
-        mockMvc.perform(request)
-                .andExpect(status().isBadRequest());  // esperamos un error 400 Bad Request cuando operator es null
-    }
 }

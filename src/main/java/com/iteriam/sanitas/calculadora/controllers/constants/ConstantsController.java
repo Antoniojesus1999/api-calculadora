@@ -12,14 +12,7 @@ public final class ConstantsController {
      * Server error.
      */
     public static final String API_RESPONSE_500 = "Server error.";
-    /**
-     * Error operator.
-     */
-    public static final String ERROR_OPERATOR = "Falta el parametro operador, Por favor introduzca un operador valido ADD o SUB.";
-    /**
-     * Error operator.
-     */
-    public static final String ERROR_NUM_NULL = "Falta operadores, Por favor introduzca operador 1 y operador 2 para hacer el cálculo.";
+
     /**
      * Error operator not supported.
      */
@@ -38,4 +31,13 @@ public final class ConstantsController {
      * The constant PARAM_OPERATOR
      */
     public static final String PARAM_OPERATOR = "operator";
+
+    /**
+     * error operand test.
+     */
+    public static final String ERROR_OPERATOR = "Falta el parámetro operador, Por favor introduzca un operador válido ADD o SUB.";
+    /**
+     * Error operator.
+     */
+    public static final String ERROR_NUM_NULL = "Falta operadores, Por favor introduzca operador 1 y operador 2 para hacer el cálculo.";
 }

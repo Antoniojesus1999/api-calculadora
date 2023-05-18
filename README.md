@@ -126,5 +126,5 @@ Resultado esperado:
 ```json
 {
     "errorCode": 400,
-    "errorMessage": "Falta el parametro operador, Por favor introduzca un operador valido ADD o SUB."
+    "errorMessage": "Falta el parámetro operador, Por favor introduzca un operador válido ADD o SUB."
 }

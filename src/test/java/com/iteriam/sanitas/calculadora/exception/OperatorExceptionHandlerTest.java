@@ -9,16 +9,13 @@ import org.mockito.Mock;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.web.servlet.AutoConfigureMockMvc;
 import org.springframework.boot.test.context.SpringBootTest;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
 import org.springframework.test.web.servlet.MockMvc;
-import org.springframework.test.web.servlet.MvcResult;
-import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.test.web.servlet.request.MockHttpServletRequestBuilder;
 
-import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.asyncDispatch;
 import static org.springframework.test.web.servlet.request.MockMvcRequestBuilders.get;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
 @SpringBootTest
 @AutoConfigureMockMvc
@@ -42,23 +39,23 @@ class OperatorExceptionHandlerTest {
                 .andExpect(jsonPath("$.errorMessage").value(Constant.ERROR_OPERATOR_NOT_SUPPORTED_TEST));
     }
 
-    private ResultActions asyncGet(String route) throws Exception {
-        return asyncGet(route, null);
+    @Test
+    public void testNullOperator() throws Exception {
+        MockHttpServletRequestBuilder request = get("/operations")
+                .param(ConstantsController.PARAM_NUM1, "10")
+                .param(ConstantsController.PARAM_NUM2, "5");
+
+        mockMvc.perform(request)
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.errorMessage").value(ConstantsController.ERROR_OPERATOR));
     }
+    @Test
+    public void testNullParamsNum() throws Exception {
+        MockHttpServletRequestBuilder request = get("/operations")
+                .param(ConstantsController.PARAM_OPERATOR, "ADD");
 
-    private ResultActions asyncGet(String route, HttpHeaders headers) throws Exception {
-        MockHttpServletRequestBuilder builder = get(route);
-
-        if(headers != null) {
-            builder.headers(headers);
-        }
-
-        MvcResult resultActions = mockMvc.perform(builder)
-                .andExpect(request().asyncStarted())
-                .andReturn();
-
-        return mockMvc.perform(asyncDispatch(resultActions));
+        mockMvc.perform(request)
+                .andExpect(status().isBadRequest())
+                .andExpect(jsonPath("$.errorMessage").value(Constant.ERROR_NUM_NULL));
     }
-
-
 }
