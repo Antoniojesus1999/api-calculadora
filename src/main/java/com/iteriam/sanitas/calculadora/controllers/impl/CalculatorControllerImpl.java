@@ -2,6 +2,7 @@ package com.iteriam.sanitas.calculadora.controllers.impl;
 
 import com.iteriam.sanitas.calculadora.controllers.CalculatorController;
 import com.iteriam.sanitas.calculadora.controllers.constants.ConstantsController;
+import com.iteriam.sanitas.calculadora.controllers.exception.model.NumParamsNullException;
 import com.iteriam.sanitas.calculadora.controllers.exception.model.OperandNullException;
 import com.iteriam.sanitas.calculadora.controllers.responses.ResponseBase;
 import com.iteriam.sanitas.calculadora.controllers.responses.get.OperationResult;
@@ -29,6 +30,9 @@ public class CalculatorControllerImpl implements CalculatorController {
     @Override
     public ResponseEntity<ResponseBase<OperationResult>> getOperation(BigDecimal operand1, Operator operator, BigDecimal operand2) {
         if (operand1 == null || operand2 == null) {
+            throw new NumParamsNullException(ConstantsController.ERROR_NUM_NULL);
+        }
+        if(operator == null){
             throw new OperandNullException(ConstantsController.ERROR_OPERATOR);
         }
         BigDecimal response = operationsService.runOperation(operand1, operator.getOperatorValue(), operand2);

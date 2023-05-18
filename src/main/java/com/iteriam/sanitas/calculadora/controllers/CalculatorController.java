@@ -35,9 +35,9 @@ public interface CalculatorController {
             })
     @GetMapping(value = "/operations", produces = {MediaType.APPLICATION_JSON_VALUE})
     ResponseEntity<ResponseBase<OperationResult>> getOperation(
-            @RequestParam(value = "operand1",required = false) BigDecimal operand1,
-            @RequestParam("operator")  Operator operator,
-            @RequestParam(value = "operand2",required = false) BigDecimal operand2);
+            @RequestParam(value = ConstantsController.PARAM_NUM1, required = false) BigDecimal operand1,
+            @RequestParam(value = ConstantsController.PARAM_OPERATOR, required = false) Operator operator,
+            @RequestParam(value = ConstantsController.PARAM_NUM2, required = false) BigDecimal operand2);
 
 
 

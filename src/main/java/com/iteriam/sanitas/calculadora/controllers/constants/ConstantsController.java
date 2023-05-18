@@ -1,7 +1,8 @@
 package com.iteriam.sanitas.calculadora.controllers.constants;
 
 public final class ConstantsController {
-    private ConstantsController(){}
+    private ConstantsController() {
+    }
 
     /**
      * Request completed successfully. Ok.
@@ -14,10 +15,27 @@ public final class ConstantsController {
     /**
      * Error operator.
      */
-    public static final String ERROR_OPERATOR = "Falta operadores, Porfavor introduzca operador 1 y operador 2 para hacer el cálculo.";
+    public static final String ERROR_OPERATOR = "Falta el parametro operador, Por favor introduzca un operador valido ADD o SUB.";
+    /**
+     * Error operator.
+     */
+    public static final String ERROR_NUM_NULL = "Falta operadores, Por favor introduzca operador 1 y operador 2 para hacer el cálculo.";
     /**
      * Error operator not supported.
      */
     public static final String ERROR_OPERATOR_NOT_SUPPORTED = "Operación no soportada para el valor: ";
 
+    /**
+     * The constant PARAM_NUM1
+     */
+    public static final String PARAM_NUM1 = "operand1";
+    /**
+     * The constant PARAM_NUM2
+     */
+    public static final String PARAM_NUM2 = "operand2";
+
+    /**
+     * The constant PARAM_OPERATOR
+     */
+    public static final String PARAM_OPERATOR = "operator";
 }

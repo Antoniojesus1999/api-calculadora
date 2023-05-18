@@ -27,7 +27,7 @@ El proyecto sigue una estructura típica de una aplicación Spring Boot:
         - `config`: Contiene clases de configuración (configuración Bean Log).
         - `controller`: Contiene el controlador rest de la calculadora.
           - `constants`: Contiene las constantes que usamos en el controller.
-          - `exception`: Contiene el modelo y metodos de las excepciones.
+          - `exception`: Contiene el modelo y métodos de las excepciones.
             - `model`: Contiene los modelos de las excepciones.
           - `impl`: Implementación del controller.
           - `responses`: Modelo de respuesta.
@@ -35,7 +35,7 @@ El proyecto sigue una estructura típica de una aplicación Spring Boot:
           - `impl`: Implementación del log.
         - `model`: Model que utilizamos en el service para hacer las operaciones.
         - `service`: Contiene la lógica de negocio de la aplicación en este caso las operaciones de la calculadora.
-          - `impl`: Implementación de la logica.
+          - `impl`: Implementación de la lógica.
 - `src/main/resources`: Contiene archivos de recursos.
     - `application.properties`: Archivo de configuración de la aplicación.
 - `src/test`: Contiene las pruebas unitarias y de integración.
@@ -120,3 +120,11 @@ Resultado esperado:
   "errorMessage": "Falta operadores, Porfavor introduzca operador 1 y operador 2 para hacer el cálculo."
 }
 ```
+**Petición con excepción por falta de uno o dos operadores:**
+> **URL**: http://localhost:8080/operations?operand1=1&operator=&operand2=1
+Resultado esperado:
+```json
+{
+    "errorCode": 400,
+    "errorMessage": "Falta el parametro operador, Por favor introduzca un operador valido ADD o SUB."
+}

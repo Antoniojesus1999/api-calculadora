@@ -3,11 +3,11 @@ package com.iteriam.sanitas.calculadora.services.impl;
 
 import com.iteriam.sanitas.calculadora.models.Operator;
 import com.iteriam.sanitas.calculadora.services.OperationService;
-import org.springframework.stereotype.Component;
+import org.springframework.stereotype.Service;
 
 import java.math.BigDecimal;
 
-@Component
+@Service
 public class OperationServiceImpl implements OperationService {
 
 

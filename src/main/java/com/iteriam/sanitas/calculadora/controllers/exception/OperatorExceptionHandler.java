@@ -1,8 +1,9 @@
 package com.iteriam.sanitas.calculadora.controllers.exception;
 
 import com.iteriam.sanitas.calculadora.controllers.constants.ConstantsController;
-import com.iteriam.sanitas.calculadora.controllers.exception.model.OperationErrorResponse;
+import com.iteriam.sanitas.calculadora.controllers.exception.model.NumParamsNullException;
 import com.iteriam.sanitas.calculadora.controllers.exception.model.OperandNullException;
+import com.iteriam.sanitas.calculadora.controllers.exception.model.OperationErrorResponse;
 import com.iteriam.sanitas.calculadora.controllers.exception.model.OperatorException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -16,7 +17,7 @@ public class OperatorExceptionHandler extends ResponseEntityExceptionHandler {
 
     @ExceptionHandler(value = {MethodArgumentTypeMismatchException.class})
     public ResponseEntity<OperationErrorResponse> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException ex) {
-        return handleOperatorException(new OperatorException(ConstantsController.ERROR_OPERATOR_NOT_SUPPORTED+ ex.getValue()));
+        return handleOperatorException(new OperatorException(ConstantsController.ERROR_OPERATOR_NOT_SUPPORTED + ex.getValue()));
 
     }
 
@@ -26,9 +27,14 @@ public class OperatorExceptionHandler extends ResponseEntityExceptionHandler {
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
 
-    @ExceptionHandler(value = {OperandNullException.class})
-    public ResponseEntity<OperationErrorResponse> operandNullExceptionException(OperandNullException ex) {
-        OperationErrorResponse error = new OperationErrorResponse(HttpStatus.BAD_REQUEST.value(),ex.getMessage()) ;
+    @ExceptionHandler(value = {NumParamsNullException.class})
+    public ResponseEntity<OperationErrorResponse> numParamsNullException(NumParamsNullException ex) {
+        OperationErrorResponse error = new OperationErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage()) ;
+        return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
+    }
+    @ExceptionHandler(value = {Exception.class})
+    public ResponseEntity<OperationErrorResponse> operandNullException(OperandNullException ex) {
+        OperationErrorResponse error = new OperationErrorResponse(HttpStatus.BAD_REQUEST.value(), ex.getMessage()) ;
         return new ResponseEntity<>(error, HttpStatus.BAD_REQUEST);
     }
 
